@@ -65,10 +65,12 @@ local function setup_mappings()
 end
 
 function M.setup(opts)
-	opts = opts or {}
+	opts = opts or { enable_mappings = false }
 	gotests(opts)
 	setup_commands(opts)
-	setup_mappings()
+	if opts.enable_mappings then
+		setup_mappings()
+	end
 end
 
 return M

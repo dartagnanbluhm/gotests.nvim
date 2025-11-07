@@ -1,39 +1,32 @@
 # gotests.nvim
 
-There is [gotests-vim](https://github.com/buoto/gotests-vim) as a plugin to handle [gotests](https://github.com/cweill/gotests) with vim.
-
-This is a Lua rewrite for Neovim.
+This is a Neovim plugin for gotests.
 
 ## Required
 
 - [gotests](https://github.com/cweill/gotests)
 
 ## Installation
-Gotests-vim requires **gotests** to be available in your `$PATH`. Alternatively you
-can provide path to **gotests** using `g:gotests_bin` setting.
 
-### [lazy.nvim](https://github.com/folke/lazy.nvim)
+This plugin requires **gotests** to be available in your `$PATH`. You can optionally specify the path to the **gotests** binary and a template directory via the setup options.
+
+### Using lazy.nvim
 
 ```lua
 {
-  "yanskun/gotests.nvim",
+  "dartagnanbluhm/gotests.nvim",
   ft = "go",
   config = function()
-    require("gotests").setup()
+    require("gotests").setup({
+      -- Optional: path to gotests binary (default: "gotests")
+      gotests_bin = "gotests",
+      -- Optional: path to custom template directory (default: "")
+      gotests_template_dir = "",
+      -- Optional: disable default key mappings (default: false)
+      enable_mappings = true,
+    })
   end,
 },
-```
-
-### [packer.nvim](https://github.com/wbthomason/packer.nvim)
-
-```lua
-use {
-  'yanskun/gotests.nvim',
-  ft = 'go',
-  config = function()
-    require('gotests').setup()
-  end
-}
 ```
 
 ## Usage
@@ -43,11 +36,12 @@ Command|Description
 `:GoTests`| generate tests for functions at the current line or functions selected in visual mode.
 `:GoTestsAll`| generate tests for all functions and methods
 
-## Settings
-If you want you can set path to your **gotests** binary if it's not in your path, for example:
+## Mappings
 
-    let g:gotests_bin = '/home/user/go/bin/gotests'
+This plugin provides the following default key mappings only when `enable_mappings` is set to `true`:
 
-You can also set custom template directory:
+- `<leader>gt` - Generate tests for the function at the current line or selected functions in visual mode.
+- `<leader>gT` - Generate tests for all functions and methods in the current file.
 
-    let g:gotests_template_dir = '/home/user/templates/'
+You can customize these mappings in your Neovim configuration if desired.
+
